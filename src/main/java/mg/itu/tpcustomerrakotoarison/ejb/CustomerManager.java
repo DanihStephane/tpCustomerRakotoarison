@@ -13,28 +13,29 @@ import jakarta.persistence.Query;
 
 /**
  * Gère la persistance des Customers.
+ *
  * @author s.rakotoarison
  */
 @Stateless
 public class CustomerManager {
-    
+
     @PersistenceContext(unitName = "customerPU")
     private EntityManager em;
-    
-    public List<Customer> getAllCustomers() {  
-      Query query = em.createNamedQuery("Customer.findAll");
-      return query.getResultList();
-    }  
-        
-    public Customer update(Customer customer) {
-      return em.merge(customer);  
+
+    public List<Customer> getAllCustomers() {
+        Query query = em.createNamedQuery("Customer.findAll");
+        return query.getResultList();
     }
-    
+
+    public Customer update(Customer customer) {
+        return em.merge(customer);
+    }
+
     public void persist(Customer customer) {
-       em.persist(customer);
+        em.persist(customer);
     }
 
     public Customer findById(int idCustomer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.find(Customer.class, idCustomer);
     }
 }
